@@ -29,27 +29,27 @@ function keyPush(evt){
 			//ctx.clearRect(0,0,canvas.width,canvas.height);
 			if (x > 0){
 				x-=25;
-				ctx.fillText('A',x,y);	
+				//ctx.fillText('A',x,y);	
 			}
 			break;
 		case 38:
 			if (y > 25){
 				y-=25;
-				ctx.fillText('A',x,y);	
+				//ctx.fillText('A',x,y);	
 			}
 			break;
 		case 39:
 			if (x < 475){
 				x+=25;
-				ctx.fillText('A',x,y);	
+				//ctx.fillText('A',x,y);	
 			}
 			break;
 		case 40:
 			if (y < 500){
 				y+=25;
-				ctx.fillText('A',x,y);	
+				//ctx.fillText('A',x,y);	
 			}
 			break;
 	}
 }
-player.src = 'assets/player.png';
+player.src = 'assets/MouseBig.png';
