@@ -22,7 +22,7 @@ document.addEventListener("keydown", keyPush);
 
 setInterval(update, 10);
 setInterval(randomCats,10000);
-setInterval(randomCheese,50000);
+setInterval(randomCheese,30000);
 
 var catList = {};
 var cheeseList = {};
@@ -108,6 +108,7 @@ function collision(e2){
 
 
 randomCats();
+randomCheese();
 
 function update(){
 	
@@ -116,6 +117,13 @@ function update(){
 
 	for(var key in cheeseList){
 		updateCheese(cheeseList[key]);
+				var isColliding = collision(cheeseList[key]);
+
+		if(isColliding) {
+			hp = hp + 10;
+			delete cheeseList[key];
+		}
+
 	}
 
 	for(var key in catList){
@@ -149,25 +157,25 @@ function keyPush(evt){
 		case 37:
 
 			if (x > 0){
-				x-=25;
+				x-=20;
 				ctx.fillText('A',x,y);	
 			}
 			break;
 		case 38:
 			if (y > 0){
-				y-=25;
+				y-=20;
 				ctx.fillText('A',x,y);	
 			}
 			break;
 		case 39:
 			if (x < 475){
-				x+=25;
+				x+=20;
 				ctx.fillText('A',x,y);	
 			}
 			break;
 		case 40:
 			if (y < 475){
-				y+=25;
+				y+=20;
 				ctx.fillText('A',x,y);	
 			}
 			break;
