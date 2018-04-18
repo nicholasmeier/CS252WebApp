@@ -144,7 +144,9 @@ function update(){
 		hp =100;
 		timeNow = Date.now();
 		catList={};
+		cheeseList={};
 		randomCats();
+		randomCheese();
 			}
 
 		ctx.drawImage(player, x, y);
