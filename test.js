@@ -16,24 +16,16 @@ var timeNow = Date.now();
 
 var player = new Image;
 var cat = new Image;
+var cheese = new Image;
 
 document.addEventListener("keydown", keyPush);
 
 setInterval(update, 10);
 setInterval(randomCats,10000);
+setInterval(randomCheese,50000);
 
 var catList = {};
-
-function getDistance(e2) {
-	var vx = x - e2.xx;
-	var vy = y - e2.yy;
-	return Math.sqrt(vx*vx+vy*vy);
-}
-
-function collision(e2){
-	var distance = getDistance(e2);
-	return distance < 15;
-}
+var cheeseList = {};
 
 function randomCats(){
 	var a = Math.random()*100;
@@ -43,8 +35,15 @@ function randomCats(){
 	var e = Math.random();
 	Cat(e,a,b,c,d);
 }
+function randomCheese(){
+	var a = Math.random()*100;
+	var b = Math.random()*100;
+	var c = Math.random()*5;
+	var d = Math.random()*5;
+	var e = Math.random();
+	Cheese(e,a,b,c,d);
+}
 
-Cat(1,150,150,1,1);
 function Cat(id,x,y,sx,sy){
 	var kedi  = {
 		xx:x,
@@ -60,6 +59,10 @@ function updateCat(s) {
 catPosition(s);
 drawCat(s);
 }
+function updateCheese(s){
+	catPosition(s);
+	drawCheese(s);
+}
 
 function catPosition(s) {
 	
@@ -74,10 +77,46 @@ function catPosition(s) {
 function drawCat(s){
 	ctx.drawImage(cat, s.xx, s.yy);
 }
+function drawCheese(s){
+	ctx.drawImage(cheese, s.xx, s.yy);
+}
+
+
+function Cheese(id,x,y,sx,sy){
+	var cheese  = {
+		xx:x,
+		sx:sx,
+		yy:y,
+		sy:sy,
+		id:id,
+				}
+	cheeseList[id] = cheese;
+}
+
+function getDistance(e2) {
+	var vx = x - e2.xx;
+	var vy = y - e2.yy;
+	return Math.sqrt(vx*vx+vy*vy);
+}
+
+function collision(e2){
+	var distance = getDistance(e2);
+	return distance < 15;
+}
+
+
+
+
+randomCats();
 
 function update(){
 	
 	ctx.fillRect(0,0,500,500);
+
+
+	for(var key in cheeseList){
+		updateCheese(cheeseList[key]);
+	}
 
 	for(var key in catList){
 		updateCat(catList[key]);
@@ -135,5 +174,6 @@ function keyPush(evt){
 	}
 }
 
-cat.src='assets/kedi.png'
+cheese.src='assets/cheese.png';
+cat.src='assets/kedi.png';
 player.src = 'assets/farecik.png';
