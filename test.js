@@ -89,10 +89,11 @@ function update(){
 
 		}
 	}
-	
+
 		if(hp <=0) {
 		var timeSurived = Date.now()-timeNow;
-		ctx.strokeText("You lived for "+hp+" ms.",100,100);
+		alert("You Survived "+timeSurived+ " ms.!");
+		
 		hp =100;
 		timeNow = Date.now();
 		catList={};
