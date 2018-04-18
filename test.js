@@ -1,39 +1,120 @@
-var ctx = document.getElementById("ctx").getContext("2d");
 
-ctx.font = '30px Arial';
-ctx.fillStyle = 'green';
+var ctx = document.getElementById('ctx').getContext('2d');
+
+
+
+ctx.fillStyle = 'white';
+ctx.font = '15px Arial Black';
+
 
 var x = 50;
 var y = 50;
-var player = new Image;
-ctx.drawImage(player, x, y);
 
-//ctx.fillText('A',y,x);
+var hp = 100;
+
+var timeNow = Date.now();
+
+var player = new Image;
+var cat = new Image;
 
 document.addEventListener("keydown", keyPush);
 
-setInterval(update, 5);
+setInterval(update, 10);
+setInterval(randomCats,10000);
 
+var catList = {};
+
+function getDistance(e2) {
+	var vx = x - e2.xx;
+	var vy = y - e2.yy;
+	return Math.sqrt(vx*vx+vy*vy);
+}
+
+function collision(e2){
+	var distance = getDistance(e2);
+	return distance < 15;
+}
+
+function randomCats(){
+	var a = Math.random()*100;
+	var b = Math.random()*100;
+	var c = Math.random()*5;
+	var d = Math.random()*5;
+	var e = Math.random();
+	Cat(e,a,b,c,d);
+}
+
+Cat(1,150,150,1,1);
+function Cat(id,x,y,sx,sy){
+	var kedi  = {
+		xx:x,
+		sx:sx,
+		yy:y,
+		sy:sy,
+		id:id,
+				}
+	catList[id] = kedi;
+}
+
+function updateCat(s) {
+catPosition(s);
+drawCat(s);
+}
+
+function catPosition(s) {
+	
+	s.xx += s.sx;
+	s.yy += s.sy;
+
+	if(s.xx < 0 || s.xx > 500) s.sx = -s.sx;
+	if(s.yy < 0 || s.yy > 500) s.sy = -s.sy;
+
+}
+
+function drawCat(s){
+	ctx.drawImage(cat, s.xx, s.yy);
+}
 
 function update(){
-	ctx.fillStyle = 'white';
+	
 	ctx.fillRect(0,0,500,500);
-	ctx.drawImage(player, x, y);
-	/*ctx.fillStyle = 'green';
-	ctx.fillText('A',x,y);*/
+
+	for(var key in catList){
+		updateCat(catList[key]);
+
+		var isColliding = collision(catList[key]);
+
+		if(isColliding) {
+			hp = hp - 1;
+
+		}
+	}
+	
+		if(hp <=0) {
+		var timeSurived = Date.now()-timeNow;
+		ctx.strokeText("You lived for "+hp+" ms.",100,100);
+		hp =100;
+		timeNow = Date.now();
+		catList={};
+		randomCats();
+			}
+
+		ctx.drawImage(player, x, y);
+		ctx.strokeText("Life: "+hp,0,20);
+		
 }
 
 function keyPush(evt){
 	switch(evt.keyCode){
 		case 37:
-			//ctx.clearRect(0,0,canvas.width,canvas.height);
+
 			if (x > 0){
 				x-=25;
 				ctx.fillText('A',x,y);	
 			}
 			break;
 		case 38:
-			if (y > 25){
+			if (y > 0){
 				y-=25;
 				ctx.fillText('A',x,y);	
 			}
@@ -45,11 +126,13 @@ function keyPush(evt){
 			}
 			break;
 		case 40:
-			if (y < 500){
+			if (y < 475){
 				y+=25;
 				ctx.fillText('A',x,y);	
 			}
 			break;
 	}
 }
-player.src = 'assets/player.png';
+
+cat.src='assets/kedi.png'
+player.src = 'assets/farecik.png';
