@@ -1,7 +1,5 @@
 var ctx = document.getElementById('ctx').getContext('2d');
 
-
-
 ctx.fillStyle = 'white';
 ctx.font = '15px Arial Black';
 
@@ -55,8 +53,8 @@ function Cat(id,x,y,sx,sy){
 }
 
 function updateCat(s) {
-catPosition(s);
-drawCat(s);
+	catPosition(s);
+	drawCat(s);
 }
 function updateCheese(s){
 	catPosition(s);
@@ -114,37 +112,38 @@ function update(){
 	ctx.fillRect(0,0,500,500);
 
 
-	for(var key in cheeseList){
-		updateCheese(cheeseList[key]);
-				var isColliding = collision(cheeseList[key]);
+	for(var che_item in cheeseList){
+		updateCheese(cheeseList[che_item]);
+				var isColliding = collision(cheeseList[che_item]);
 
 		if(isColliding) {
 			hp = hp + 10;
 			delete cheeseList[key];
+			//add sounds and stuff
 		}
 
 	}
 
-	for(var key in catList){
-		updateCat(catList[key]);
+	for(var cat_item in catList){
+		updateCat(catList[cat_item]);
 
-		var isColliding = collision(catList[key]);
+		var isColliding = collision(catList[cat_item]);
 
 		if(isColliding) {
 			hp = hp - 1;
-
+			//add sounds and stuff
 		}
 	}
 
 		if(hp <=0) {
-		var timeSurived = Date.now()-timeNow;
-		alert("You Survived "+timeSurived+ " ms.!");
+			var timeSurived = Date.now()-timeNow;
+			alert("You Survived "+timeSurived+ " ms.!");
 		
-		hp =100;
-		timeNow = Date.now();
-		catList={};
-		randomCats();
-			}
+			hp =100;
+			timeNow = Date.now();
+			catList={};
+			randomCats();
+		}
 
 		ctx.drawImage(player, x, y);
 		ctx.strokeText("Life: "+hp,0,20);
@@ -154,33 +153,27 @@ function update(){
 function keyPush(evt){
 	switch(evt.keyCode){
 		case 37:
-
 			if (x > 0){
 				x-=20;
-				ctx.fillText('A',x,y);	
 			}
 			break;
 		case 38:
 			if (y > 0){
 				y-=20;
-				ctx.fillText('A',x,y);	
 			}
 			break;
 		case 39:
 			if (x < 475){
-				x+=20;
-				ctx.fillText('A',x,y);	
+				x+=20;	
 			}
 			break;
 		case 40:
 			if (y < 475){
 				y+=20;
-				ctx.fillText('A',x,y);	
 			}
 			break;
 	}
 }
-
 cheese.src='assets/cheese.png';
 cat.src='assets/kedi.png';
 player.src = 'assets/farecik.png';
