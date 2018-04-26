@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang = "en">
+	<head>
+		<title>MadLads: Leaderboard</title>
+		<script src="https://www.gstatic.com/firebasejs/4.13.0/firebase.js"></script>
+		<script>
+			// Initialize Firebase
+	  		// TODO: Replace with your project's customized code snippet
+	  		var config = {
+    			//apiKey: "<API_KEY>",
+	    		authDomain: "madlads-cs252.firebaseapp.com",
+	    		databaseURL: "https://madlads-cs252.firebaseio.com",
+    			projectId: "madlads-cs252",
+	    		storageBucket: "madlads-cs252.appspot.com",
+    			//messagingSenderId: "<SENDER_ID>",
+  			};
+	  		firebase.initializeApp(config);
+
+	  		//initialize database
+  			var database = firebase.database();
+  		</script>
+  	</head>
+
+	<style>
+    	body { 
+    		background-image: url("mouse.jpg");
+    	}
+    	* {cursor: url(m.cur), default;}
+    </style>
+
+	<body>
+		<h1 align="center" style="color: black; font-size:40px">SCOREBOARD</h1>
+		<table align="center" id = "leaderboardTable" border=1 width=400>
+				<tr>
+					<th>Name</th>
+					<th>Score</th>
+				</tr>				
+		</table>
+		<script>
+			window.onload = function(){
+				var leadRef = database.ref('leaderboard/');
+				leadRef.on('value', function(snapshot){
+					snapshot.forEach(function(childSnapshot){
+						var nameData = childSnapshot.val().name;
+						var scoreData = childSnapshot.val().score;
+
+						var node = document.createElement("tr");
+						var nameth = document.createElement("th");
+						var scoreth = document.createElement("th");
+
+						var nameTxt = document.createTextNode(nameData);
+						var scoreTxt = document.createTextNode(scoreData);
+
+						nameth.appendChild(nameTxt);
+						scoreth.appendChild(scoreTxt);
+
+						node.appendChild(nameth);
+						node.appendChild(scoreth);
+
+						document.getElementById("leaderboardTable").appendChild(node);
+					});
+				});
+
+				//var node = document.createElement("tr");
+				//var nameth = node.createElement("th");
+				//var scoreth = node.createElement("th");
+
+				//document.createTextNode();
+				//document.createTextNode();
+			}
+		</script>
+		<div class="container" style="text-align:center" id="test">
+			<p>
+				<a href="https://github.com/nicholasmeier/CS252WebApp">Click here to see the source!</a>
+			</p>
+			<p>
+				<a href="https://sweetamorito.deviantart.com/art/Background-Mouse-Heaven-197200951">Link to background!</a>
+			</p>
+		</div>
+	</body>
+</html>
