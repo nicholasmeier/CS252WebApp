@@ -1,4 +1,4 @@
-Lab 6 - Mad Mice Game in JS, HTML
+Lab 6 - MadLads Game in JS, HTML
 
 * * * * * * * * * * * * * 
 
@@ -9,5 +9,6 @@ Baris Dingil - bdingil
 * * * * * * * * * * * * * 
 
 Project Description : 
-Creating a dungeon crawl game using html, js, and Node.JS framework.
+Creating a dungeon crawl game using html, js, NODEJS, and Firebase.
+Game description: Play as a mouse wanting to find cheese and avoid the cats that chase him around. 
 
