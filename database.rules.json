@@ -1,0 +1,26 @@
+{
+	"rules": {
+		".read": "true",
+    	".write": "true"
+  		/*"leaderboard":{
+	  		
+
+    		/*"highScore":{
+	    		".validate":"newData.isNumber()"
+    		},
+
+    		"scoreList": {
+	    		"$name": {
+    				".validate": "newData.hasChildren(['name', 'score'])",
+    				"name": { ".validate": "newData.isString()"},
+	    			"score": {".validate": "newData.isNumber()"},
+    				"$other": {".validate": false}
+    			}
+    		},
+
+    		"$other":{
+	    		".validate": false
+    		}
+  		}*/
+  	}
+}
